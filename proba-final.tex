@@ -1,0 +1,1463 @@
+\documentclass[a4paper,spanish]{article}
+
+\usepackage[spanish,activeacute]{babel}
+\usepackage{moreverb}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{theorem,amsmath,amssymb,latexsym}
+\usepackage{enumerate}
+
+\oddsidemargin -0.5in
+\textwidth 7.2in
+\topmargin 0in
+\addtolength{\topmargin}{-.5in}
+\textheight 10in
+\parskip=1ex
+\pagestyle{fancy}
+%usar el segundo nivel de enumeracion con letras
+%\Rnewcommand{\labelenumii}{\alph{enumii}. }
+
+\newcommand{\Rv}{\marginpar{REVISAR}}
+\newcommand{\nohecho}{\marginpar{NO HECHO}}
+
+%espaciado
+\newcommand{\vsp}{\vspace{0.4cm}}
+\newcommand{\hsp}{\hspace*{0.12cm}}
+
+%comandos para el resumen
+\newcommand{\tab}{\hspace*{1cm}}
+\newcommand{\llamada}[1]{\begin{center} \bfseries #1 \mdseries \end{center}}
+\newcommand{\nota}[1]{\vsp\defi{Nota}{#1}\vsp}
+\newcommand{\R}[0]{\mathbb{R}}
+\newcommand{\N}[0]{\mathbb{N}}
+\newcommand{\norma}[1]{\left\|#1\right\|}
+\newcommand{\limite}[2]{\lim_{ #1 \rightarrow #2}}
+\newcommand{\xx}[0]{\mathbf{x}}
+\newcommand{\xO}[0]{\mathbf{x_0}}
+\newcommand{\yO}[0]{\mathbf{y_0}}
+\newcommand{\comp}[0]{\circ}
+\newcommand{\parcial}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\D}[0]{\mathbf{D}}
+\newcommand{\He}[0]{\mathbf{H}}
+%\newcommand{\J}[0]{\mathbf{J}}
+\newcommand{\grad}[0]{\bigtriangledown}
+\newcommand{\eps}[0]{\varepsilon}
+\newcommand{\lthen}[0]{\Rightarrow}
+\newcommand{\piso}[1]{\left\lfloor{x}\right\rfloor}
+\newcommand{\bigfrac}[2]{\displaystyle\frac{#1}{#2}}
+\newcommand{\bigchoose}[0]{\displaystyle\choose}
+\DeclareMathOperator{\Cov}{Cov}
+\newcommand{\expon}[0]{{\cal E}}
+\newcommand{\tiendep}[0]{\longrightarrow^p}
+\newcommand{\tiended}[0]{\longrightarrow^d}
+\DeclareMathOperator{\MAD}{MAD}
+\DeclareMathOperator{\ECM}{ECM}
+
+\newtheorem{teo}{Teorema}
+\newtheorem{lema}{Lema}
+\newtheorem{coro}{Corolario}
+\newtheorem{defi}{Definici\'on}
+\newtheorem{obs}{Observaci\'on}
+
+% proof
+\newenvironment{demo}{{\noindent \textbf{Demo: }}}{\hfill\rule{2mm}{2mm}\par}
+
+\lhead{Probabilidad y Estad\'istica (C)}
+\rhead{Apunte de repaso general}
+
+\cfoot{$\thepage$ de \pageref{theend}}
+
+\begin{document}
+
+Disclaimer: Este apunte no es autocontenido y fue pensado como un repaso 
+de los conceptos, no para aprenderlos de aqu'i directamente.
+
+\section{Teor'ia de probabilidad}
+
+\begin{defi}[espacio muestral]
+Un \emph{espacio muestral} es el conjunto de resultados posibles de un
+experimento.
+\end{defi}
+
+\begin{defi}[evento]
+Un \emph{evento} o \emph{suceso} es un subconjunto del espacio muestral.
+\end{defi}
+
+\begin{defi}[frecuencia relativa y probabilidad]
+La \emph{frecuencia relativa} del evento $A$ est'a dada por la cantidad de 
+veces que ocurre $A$ $n_A$ sobre la cantidad de veces que se hace el 
+experimento $n$. $fr(A) = n_A/ n$. Cuando $n$ tiende a infinito $fr(A)$ tiende
+a $P(A)$, la probabilidad del evento $A$. Tanto la frecuencia relativa como la
+probabilidad estan entre $0$ y $1$.
+\end{defi}
+
+\begin{defi}[teor'ia axiom'atica de probabilidad]
+La teor'ia axiom'atica de probabilidad est'a definida por los siguientes
+axiomas (probabilidades sobre el espacio muestral $S$):
+\begin{enumerate}
+\item $P(A) \geq 0$.
+\item $P(S) = 1$.
+\item Si $\forall i \neq j A_i \cap A_j = \emptyset$ entonces 
+$P(\bigcup_i A_i) = \sum_i P(A_i)$.
+\end{enumerate}
+\end{defi}
+
+\begin{teo}[propiedades de la probabilidad]
+La funci'on de probabilidad $P$ cumple lo siguiente:
+\begin{enumerate}
+\item $P(A^c) = 1 - P(A)$.
+\item $P(\emptyset) = 0$.
+\item Si $A \subseteq B$ entonces $P(A) \leq P(B)$ y 
+	$P(B \setminus A) = P(B) - P(A)$.
+\item $P(A \cup B) = P(A) + P(B) - P(A \cap B)$.
+\end{enumerate}
+\end{teo}
+
+\begin{defi}[espacio de equiprobabilidad]
+Un espacio de equiprobabilidad $S$ es tal que $\forall x \in S$ se cumple
+$P({x}) = 1 / \#S$.
+\end{defi}
+
+\begin{defi}[probabilidad condicional]
+La probabilidad condicional de $A$ dado que sucedi'o $B$ es la probabilidad de
+que suceda el evento $A$ con el espacio muestra reducido a $B$. Escribimos
+$$P(A | B) = \frac{P (A \cap B)}{P(B)}.$$
+\end{defi}
+
+\begin{teo}[propiedades de la probabilidad condicional]
+Las probabilidades condicionales sobre el espacio muestral $S$ cumplen:
+\begin{enumerate}
+\item $P(A|B) \geq 0$
+\item $P(S|B) = 1$
+\end{enumerate}
+\end{teo}
+
+\begin{teo}[regla del producto]
+Si $P(A)>0$ y $P(B)>0$ entonces $P(A \cap B) = P(A|B)P(B) = P(B|A)P(A)$.
+\end{teo}
+
+\begin{teo}[regla del producto generalizada]
+Si $\forall k P(A_1 \cap ... \cap A_k) > 0$ entonces
+$$P(A_1 \cap ... \cap A_n) = P(A_1)P(A_2|A_1)P(A_3|A_1 \cap A_2) ...
+	P(A_n|A_1 \cap ... \cap A_{n-1}).$$
+\end{teo}
+
+\begin{defi}[partici'on]
+$A_1,...,A_k$ se dice una \emph{partici'on del espacio muestral} $S$ sii 
+$\forall i,j$:
+\begin{enumerate}
+\item $A_i \cap A_j = \emptyset$
+\item $P(A_i) > 0$
+\item $\bigcup_{i=1}^k A_i = S$.
+\end{enumerate}
+\end{defi}
+
+\begin{teo}[teorema de la probabilidad total]
+Si $A_1,...,A_k$ es una partici'on de $S$ y $B$ un evento, entonces
+$$P(B) = \sum_{i=1}^k P(B|A_i)P(A_i).$$
+\end{teo}
+
+\begin{teo}[teorema de Bayes]
+Si $A_1,...,A_k$ es una partici'on de $S$ y $B$ un evento, entonces
+$$P(A_j | B) = \frac{P(B | A_j)P(A_j)}{\sum_{i=1}^k P(B|A_i)P(A_i)}.$$
+\end{teo}
+
+\begin{defi}[independencia]
+Los eventos $A$ y $B$ son independientes sii $P(A \cap B) = P(A)P(B)$. 
+Equivalentemente $P(A) = P(A|B)$ y $P(B)=P(B|A)$.
+\end{defi}
+
+\begin{teo}[independencia del complemento]
+Si $A$ y $B$ son independientes, $A$ y $B^c$ tambi'en lo son.
+\end{teo}
+
+\begin{defi}[independencia m'ultiple]
+Un conjunto de eventos es independiente si para cualquier subconjunto de ellos
+la probabilidad de la intersecci'on es el producto de las probabilidades.
+\end{defi}
+
+\begin{obs}
+Si un conjunto es independiente, sus elementos son independientes de a pares,
+pero no al rev'es.
+\end{obs}
+
+\section{Variables Aleatorias Discretas}
+
+\begin{defi}[variable aleatoria discreta]
+Una \emph{variable aleatoria (v.a.) discreta} es una funci'on
+$X : S \to \R$ del espacio muestral en los reales. Puede verse como 
+una asignaci'on de probabilidades a distintos valores.
+\end{defi}
+
+\begin{defi}[funci'on de probabilidad puntual]
+La \emph{funci'on de probabilidad puntual} $p_X$ de la v.a. $X$ es la funci'on
+que dado un real dice la probabilidad de que $X$ valga eso, es decir
+$$p_X(x) = P(X = x) = P(\{w \in S | X(w) = x\}).$$
+\end{defi}
+
+\begin{teo}[propiedades de la probabilidad puntual]
+La funci'on de distribuci'on acumulada $p_X$ de una v.a. $X$ cumple:
+\begin{enumerate}
+\item $\forall x p_X(x) \geq 0$
+\item $\sum_{x \in Im(X)} p_X(x) = 1$
+\end{enumerate}
+\end{teo}
+
+\begin{defi}[funci'on de distribuci'on acumulada]
+La \emph{funci'on de distribuci'on acumulada} de una v.a. discreta $X$ $F_X$
+se define para todo $x$ en $\R$ como
+$$F_X(x) = P(X \leq x) = \sum_{y \leq x, y \in Im(X)} p_X(y).$$
+\end{defi}
+
+\begin{teo}[propiedades de la distribuci'on acumulada]
+La funci'on de distribuci'on acumulada $F_X$ de una v.a. $X$ cumple:
+\begin{enumerate}
+\item $\forall x \in \R\ F_X(x) \in [0,1]$
+\item $F_X$ es mon'otona no decreciente
+\item $F_x$ es continua a derecha
+\item $\limite{x}{\infty} F_X(x) = 1$ y $\limite{x}{-\infty} F_X(x) = 0$
+\item En cada punto, el valor del salto es la probabilidad puntual: 
+	$p_X(x) = F_X(x) - F_X(x^-)$.
+\end{enumerate}
+\end{teo}
+
+\begin{teo}[probabilidad de un intervalo]
+Sean $a,b \in \R, a \leq b$. Se cumple que:
+\begin{enumerate}
+\item $P(a < X \leq b) = F_x(b) - F_x(a)$
+\item $P(a < X < b) = F_x(b^-) - F_x(a)$
+\item $P(a \leq X \leq b) = F_x(b) - F_x(a^-)$
+\item $P(a \leq X < b) = F_x(b^-) - F_x(a^-)$
+\end{enumerate}
+\end{teo}
+
+\begin{defi}[esperanza]
+La \emph{esperanza} de una v.a. discreta $X$ se define como 
+$$E(X) = \mu_X = \sum_{x \in Im(X)} x p_X(x).$$
+\end{defi}
+
+\begin{teo}[funci'on de una v.a. discreta]
+Si $X$ es una v.a. discreta entonces $f(X)$ tambi'en lo es y su esperanza es
+$$E(f(x)) = \sum_{y \in Im(f(X))} y p_{f(X)}(y) = 
+	\sum_{x \in Im(X)} f(x) p_X(x).$$
+\end{teo}
+
+\begin{teo}[linealidad de la esperanza]
+Si $a,b \in \R$, $E(aX+b) = aE(X)+b$.
+\end{teo}
+
+\begin{defi}[varianza y desv'io]
+La \emph{varianza} de una v.a. discreta $X$ se define como
+$$V(X) = \sigma^2_X = \sum_{x \in Im(X)} (x - \mu_X)^2 p_X(X) = 
+	E[(X-E(X))^2].$$
+El \emph{desv'io standard} se define como $\sigma_X = \sqrt{\sigma^2_X}$.
+\end{defi}
+
+\begin{teo}[varianza]
+$V(X) = E(X^2) - E(X)^2$.
+\end{teo}
+
+\begin{teo}[la varianza es bilineal]
+$V(aX+b) = a^2 V(X)$ ($\sigma_{aX+b} = |a|\sigma_X$).
+\end{teo}
+
+\subsection{Distribuci'on Binomial}
+
+Se realizan $n$ experimentos independientes con probabilidad de 'exito $p$. Si
+$n=1$ es llama distribuci'on de Bernoulli. La variable binomial es la v.a. 
+$X$:n'umero de 'exitos. Escribimos 
+$$X \sim Bi(n,p)$$.
+
+\begin{teo}[probabilidad puntual de distribuci'on binomial]
+La funci'on de probabilidad puntual de $X \sim Bi(n,p)$ es 
+$$p_X(k) = 
+	\begin{cases}
+		{n \choose k}p^k(1-p)^{n-k} & k \in \N, 0 \leq k \leq n \\
+		0 & \mbox{otherwise}
+	\end{cases}
+$$
+\end{teo}
+
+\begin{obs}
+Por la f'ormula de binomio de Newton $(a+b)^n = 
+	\sum_{k=0}^n {n \choose k} a^k b^{n-k}$ podemos ver que 
+$\sum_x p_X(x) = (p + (1-p))^n = 1$.
+\end{obs}
+
+\begin{teo}[esperanza y varianza de distribuci'on binomial]
+Si $X \sim Bi(n,p)$ entonces se cumple que $E(X) = np$ y $V(X) = np(1-p)$.
+\end{teo}
+
+\begin{teo}[l'imite de la distribuci'on binomial]
+Supongamos que $n \to \infty$ y $p \to 0$ tal que 
+$np = \lambda$, y sea $X \sim Bi(n,p)$ entonces:
+$$p_X(k) = {n \choose k}p^k(1-p)^{n-k} \longrightarrow 
+	\frac{e^{-\lambda} \lambda^k}{k!}.$$
+O sea que podemos aproximar, cuando $n$ es grande y $p$ chico, la distribuci'on
+por su l'imite. Ver distribuci'on de Poisson.
+\end{teo}
+
+\subsection{Distribuci\'on Geom\'etrica}
+
+La v.a. $X$ tiene distribuci'on geom'etrica $G(p)$ si se hacen ensayos
+independientes con probabilidad de 'exito $p$ hasta obtener un 'exito
+y se cuenta cuantos se hicieron.
+
+\begin{teo}[probabilidad puntal de la geom'etrica]
+Si $X \sim G(p)$ entonces $p_X(k) = (1-p)^{k-1}p \forall k \in \N$.
+\end{teo}
+
+\begin{teo}[distribuci'on acumulada de la geom'etrica]
+Si $X \sim G(p)$ entonces $F_X(x) = 1-(1-p)^{\piso{x}}$.
+\end{teo}
+
+\begin{teo}[esperanza y varianza de la geom'etrica]
+Si $X \sim G(p)$ entonces
+$$E(X) = \frac{1}{p} \mbox{\ \ y\ \ } V(X)=\frac{1-p}{p^2}.$$
+\end{teo}
+
+\begin{teo}[propiedad de falta de memoria]
+Si $X \sim G(p)$ y $n,m \in \N$ entonces $P(X > n+m |X > n) = P(X > m)$.
+\end{teo}
+
+\subsection{Distribuci\'on Binomial Negativa}
+
+La v.a. $X$ tiene distribuci'on binomial negativa $BN(r,p)$ si se
+hacen ensayos independientes con probabilidad de 'exito $p$ hasta
+obtener $r$ 'exitos ($r geq 1$). Generaliza la geom'etrica.
+
+\begin{teo}[probabilidad puntal de la binomial negativa]
+Si $X \sim BN(r,p)$ entonces
+$$p_X(k) = {k-1 \choose r-1} (1-p)^{k-r}p^r \forall k \in
+\N_{geq r}.$$
+\end{teo}
+
+\begin{teo}[esperanza y varianza de la binomial negativa]
+Si $X \sim BN(r,p)$ entonces
+$$E(X) = \frac{r}{p} \mbox{\ \ y\ \ } V(X)=\frac{r(1-p)}{p^2}.$$
+\end{teo}
+
+\subsection{Distribuci\'on Hipergeom'etrica}
+
+Se tienen $N$ individuos, con $D$ 'exitos y $N-D$ fracasos. Se extrae una
+muestra de $n \leq N$. Sea la variable $X$ la cantidad de 'exitos en la
+muestra, enonces $X$ tiene distribuci'on hipergeom'etrica $X \sim H(n,N,D)$.
+
+\begin{teo}[probabilidad puntal de la hipergeom'etrica]
+Si $X \sim H(n,N,D)$ entonces
+$$P_X(k) = \frac{ {D \choose k} {N-D \choose n-k} }
+                { {N \choose n}  } \hspace{1cm} 
+                	max(0,n-(N-D)) \leq k \leq min(n,D).$$
+\end{teo}
+
+\begin{teo}[esperanza y varianza de la hipergeom'etrica]
+Si $X \sim H(n,N,D)$ entonces
+$$E(X) = n\frac{D}{N} \mbox{\ \ y\ \ } V(X)=\left(\frac{N-n}{N-1}\right)
+	n\frac{D}{N}\left(1-\frac{D}{N}\right).$$
+\end{teo}
+
+El t'ermino $\frac{N-n}{N-1}$ se llama factor de correcci'on por poblaci'on
+finita. Si $n << N$, el factor tiende a $1$ y se puede aproximar la 
+hipergeom'etrica por una binomial $H(n,N,D) \sim Bi(n,N/D)$.
+
+\subsection{Distribuci'on de Poisson}
+
+Si $X \sim P(\lambda)$ tiene distribuci'on de poisson su funci'on de
+probabilidad puntual est'a dada por
+$$p_X(k) = \frac{e^{-\lambda} \lambda^k}{k!}.$$
+
+
+\begin{teo}[esperanza y varianza de la poisson]
+Si $X \sim P(\lambda)$ entonces
+$$E(X) = \lambda \mbox{\ \ y\ \ } V(X)=\lambda.$$
+\end{teo}
+
+Un proceso de poisson es lo que pasa en un intervalo de tiempo dividible en
+subintervalos tal que la probabilidad de la ocurrencia de un evento en cada
+subintervalo es independiente de los otros y que la probabilidad de ocurrencia
+de mas de un evento en el mismo subintervalo es despreciable. Esto hace que
+se aproximable por una binomial tal que $n \to \infty$ y 
+$p \to 0$ si tendemos el subintervalo a $0$. Esto hace que la
+distribuci'on de la cantidad de eventos en un intervalo grande de largo $t$ es
+de Poisson con par'ametro $\lambda = np$, porque su funci'on de probabilidad
+puntual es el l'imite de la binomial.
+
+\section{Variables Aleatorias Continuas}
+
+Las v.a. continuas resultan de tomar limite de discretizaci'on en una variable
+discreta. Formalmente:
+\begin{defi}[variable aleatoria continua]
+$X$ es una \emph{variable aleatoria continua} si existe una funci'on 
+$f_X : \R \to \R_{\geq 0}$ llamada \emph{funci'on de densidad} tal que
+$$\forall A \subseteq \R, P(X \in A) = \int_A f_X(x)dx.$$
+\end{defi}
+
+\begin{obs}
+Observamos que las funciones de densidad difieren de las de probabilidad 
+puntual:
+\begin{enumerate}
+\item $\forall a P(X = a) = \int_{\{a\}} f_X(x) dx = 0$
+\item $f(a)$ no es una probabilidad, de hecho puede ser mayor a $1$.
+\end{enumerate}
+\end{obs}
+
+\begin{defi}[funci'on de distribuci'on acumulada para continuas]
+La \emph{funci'on de distribuci'on acumulada} de una v.a. continua $X$ se
+define como la probabilidad del intervalo $(-\infty, x)$ y puede escribirse
+como 
+$$F_X(x) = \int_{-\infty}^x f_X(t) dt.$$
+\end{defi}
+
+\begin{teo}[propiedades de la acumulada]
+Las funciones de distribuci'on acumulada de v.a. continuas cumplen:
+\begin{enumerate}
+\item $\forall x \in \R F_X(x) \in [0,1]$
+\item $F_X$ es mon'otona no decreciente
+\item \label{F-continua}$F_X$ es continua en todo punto.
+\item $\limite{x}{\infty} F_X(x) = 1$ y $\limite{x}{-\infty} F_X(x) = 0$.
+\end{enumerate}
+\end{teo}
+Notar que todos salvo \ref{F-continua} son iguales a las propiedades para 
+discretas. La propiedad \ref{F-continua} vale porque la discontinuidad a 
+izquierda se pierde porque al continuizar la variable se suaviza la curva.
+
+\begin{teo}[funciones de variables aleatorias]
+Si $X$ es una v.a. y $g : \R \to \R$ mon'otona creciente y biyectiva entonces 
+$F_{g(X)} = F_X \comp g^{-1}$ y $f_{g(X)} = (f_X \comp g^{-1}) {g^{-1}}'$.
+\end{teo}
+
+\begin{defi}[percentiles]
+Si $X$ es una v.a. continua el percentil $(100 p)$-'esimo de la distribuci'on
+de $X$ es $x_p$ tal que $F_X(x_p) = p$.
+\end{defi}
+
+\begin{defi}[mediana y cuartiles]
+La mediana $\tilde{\mu}$ se define como el percentil $50$-'esimo de la
+distribuci'on. Los cuartiles se definen como los percentiles $25$ y 
+$75$-'esimos.
+\end{defi}
+
+\begin{defi}[esperanza de continuas]
+Sea $X$ una v.a. continua. La esperanza de $X$ se define como
+$$E(X) = \mu_X = \int_{-\infty}^\infty x f_X(x) dx.$$
+\end{defi}
+
+\begin{teo}[funciones de una v.a. continua]
+Si $X$ es una v.a. continua, $f(X)$ tambi'en lo es y
+$$E(f(X)) = \int_{-\infty}^\infty f(x) f_X(x) dx.$$
+\end{teo}
+
+\begin{teo}[linealidad de la esperanza]
+Si $a,b \in \R$, $E(aX+b) = aE(X)+b$.
+\end{teo}
+
+\begin{defi}[varianza y desv'io de continuas]
+Sea $X$ una v.a. continua. La varianza de $X$ se define como
+$$V(X) = \sigma^2_X = E[(X-\mu_X)^2] = 
+	\int_{-\infty}^\infty (x - \mu_x)^2 f_X(x) dx$$
+y el desv'io $\sigma_X = \sqrt{\sigma^2_X}$.
+\end{defi}
+
+\begin{teo}[varianza]
+$V(X) = E(X^2) - E(X)^2$.
+\end{teo}
+
+\begin{teo}[la varianza es bilineal]
+$V(aX+b) = a^2 V(X)$ ($\sigma_{aX+b} = |a|\sigma_X$).
+\end{teo}
+
+\begin{defi}[funci'on indicadora]
+La funci'on indicadora del conjunto $A$ $I_A : \R \to \R$ se define como:
+$$I_A(x) = \begin{cases} 1 & x \in A \\ 0 & x \notin A. \end{cases}$$
+\end{defi}
+
+\subsection{Distribuci'on Uniforme}
+
+La distribuci'on uniforme consiste en elegir un n'umero al azar en un 
+intervalo $[A,B]$ de manera que cualquier subintervalo tiene una probabilidad
+proporcional a su largo.
+
+\begin{teo}[densidad de la uniforme]
+Si $X \sim U(A,B)$ ($X$ tiene distribuci'on uniforme) entonces
+$$f_X(x) = 1/(B-A).$$
+\end{teo}
+
+\begin{teo}[funci'on de distribuci'on acumulada de la uniforme]
+Si $X \sim U(A,B)$ entonces
+$$F_X(x) = \frac{x-A}{B-A} I_{[A,B]}(x) + I_{(B,\infty)}(x).$$
+\end{teo}
+
+\begin{teo}[esperanza y varianza de la uniforme]
+Si $X \sim U(A,B)$ entonces 
+$$E(X) = \frac{A+B}{2} \mbox{\ \ y\ \ } V(X) = \frac{(B-A)^2}{2}.$$
+\end{teo}
+
+\subsection{Distribuci'on Normal}
+
+$X$ tiene \emph{distribuci'on normal} ($X \sim N(\mu,\sigma^2)$) sii su 
+funci'on de densidad es
+$$\frac{1}{\sqrt{2 \pi} \sigma} 
+	e ^ {\displaystyle -\frac{(x-\mu)^2}{2 \sigma^2}}.$$
+El gr'afico de dicha funci'on es una campana con eje de simetr'ia y m'aximo en
+$x = \mu$ y puntos de inflexi'on en $x = \mu-\sigma$ y $x = \mu+\sigma$.
+
+\begin{defi}[normal standard]
+Definimos la distribuci'on \emph{normal standard} como $Z \sim N(0,1)$.
+\end{defi}
+
+\begin{teo}[standarizaci'on de normales]
+$$X \sim N(\mu,\sigma) \Leftrightarrow \frac{X-\mu}{\sigma} \sim N(0,1).$$
+\end{teo}
+
+\begin{teo}[acumulada de la normal]
+La funci'on acumulada de la normal no puede escribirse como algo que no sea
+una integral. Si $X \sim Z$ entonces $F_X(x) = \Phi(x)$.
+\end{teo}
+Dado el anterior teorema, la acumulada de la normal standard se encuentra
+tabulada. De dicha tabla, aplicando la standarizaci'on, se puede obtener
+la acumulada de cualquier normal.
+
+\begin{teo}[esperanza y varianza de la normal]
+Si $X ~ N(\mu,\sigma^2)$ entonces $E(X) = \mu$ y $V(X) = \sigma^2$.
+\end{teo}
+
+\subsection{Distribuci'on Gamma}
+
+\begin{defi}[funci'on Gamma o factorial]
+$$\Gamma(\alpha) = \int_0^\infty x^{\alpha-1} e^{-x}.$$
+\end{defi}
+
+\begin{teo}[propiedades de la funci'on Gamma]
+\begin{enumerate}
+\item Si $\alpha > 1$ entonces $\Gamma(\alpha) = (\alpha-1)\Gamma(\alpha-1)$.
+\item Si $\alpha \in \N$ entonces $\Gamma(\alpha) = (\alpha-1)!$.
+\item $\Gamma(1/2) = \sqrt{\pi}$.
+\end{enumerate}
+\end{teo}
+
+Se dice que $X$ tiene distribuci'on Gamma ($X \sim \Gamma(\alpha,\lambda)$) si
+su funci'on de densidad es
+$$f_X(x) = 
+	\frac{e^{-\lambda x} x^{\alpha-1} \lambda^\alpha}{\Gamma(\alpha)}.$$
+Si $\lambda = 1$ la distribuci'on es Gamma standard de par'ametro $\alpha$.
+La distribuci'on de la Gamma standard est'a tabulada para distintos valores de
+$\alpha$.
+
+\begin{teo}[esperanza y varianza de la Gamma]
+Si $X \sim \Gamma(\alpha,\lambda)$ entonces $E(X) = \alpha/\lambda$ y 
+$V(X) = \alpha/\lambda^2$.
+\end{teo}
+
+\begin{teo}[standarizaci'on de la Gamma]
+Si $\lambda > 0$ entonces
+$$X \sim \Gamma(\alpha,\lambda) \Leftrightarrow 
+	\lambda X \sim \Gamma(\alpha,1).$$
+\end{teo}
+
+\subsection{Distribuci'on Exponencial}
+
+Es un caso particular de la Gamma con $\alpha = 1$. Es decir, $X$ tiene 
+distribuci'on exponencial ($X \sim \expon(\lambda)$) si su funci'on de
+densidad es
+$$f_X(x) = \lambda e^{-\lambda x} I_{(0,\infty)}(x).$$
+
+\begin{teo}[acumulada de la exponencial]
+Si $X \sim \expon(\lambda)$ entonces
+$$F_X(x) = 1-e^{-\lambda x} I_{(0,\infty)}.$$
+\end{teo}
+
+\begin{teo}[esperanza y varianza de la exponencial]
+Si $X \sim \expon(\lambda)$ entonces $E(X) = \lambda^{-1}$ y 
+$V(X) = \lambda^{-2}$.
+\end{teo}
+
+\begin{teo}[falta de memoria]
+Si $X \sim \expon(\lambda)$ y $s,t \in \R_{>0}$ entonces
+$$P(X > s+t | X > s) = P(X > t).$$
+\end{teo}
+
+\begin{teo}[relaci'on entre distribuci'on exponencial y Poisson]
+Sea un proceso de Poisson de tasa media $v$ por lo cual la variable $X_t$:
+cantidad de eventos en un intervalo $t$ es $X_t \sim P(v t)$ entonces
+la v.a. $X$: tiempo hasta el primer evento tiene distribuci'on exponencial
+$X \sim \expon(v)$.
+\end{teo}
+
+\section{Momentos}
+
+\begin{defi}[momento]
+El \emph{momento de orden $k$} de la v.a. $X$ se define como $E(X^k)$.
+\end{defi}
+
+\begin{obs}[momentos 1 y 2]
+El momento de orden $1$ $E(X) = \mu$ y el momento de orden $2$ 
+$E(X^2) = \mu^2 + \sigma^2$.
+\end{obs}
+
+\begin{defi}[funci'on generadora de momentos]
+LA \emph{funci'on generadora de momentos} de la v.a. $X$ se define como
+$M_X(t) = E(e^tx)$.
+\end{defi}
+
+\begin{teo}[funci'on generadora de momentos]
+$E(X^n) = \parcial{^n}{^n t} M_X(0)$.
+\end{teo}
+
+Las funciones generadoras de momentos de las distintas distribuciones
+mencionadas puede encontrarse en la secci'on~\ref{sec:resumen}.
+
+\begin{teo}[unicidad de la generadora de momentos]
+Dada una distribuci'on la funci'on generadora de momentos existe y es 'unica.
+Dada una funci'on generadora de momentos, la distribuci'on es 'unica.
+\end{teo}
+Dado el teorema anterior, la funci'on generadora de momentos sirve para 
+definir completamente la distribuci'on. Esto es 'util para demostraciones
+de que tal v.a. tiene tal distribuci'on.
+
+\section{Generaci'on de n'umeros al azar}
+
+Para generar n'umeros al azar, la idea es generar $X \sim U(0,1)$ y a partir 
+de ella generar otras distribuciones como $F(X)$.
+
+\begin{teo}Sea $U \sim U(0,1)$ y $G$ una acumulada continua y estrictamente
+creciente. Si $X = G^{-1}(U)$ entonces $F_X = G$.
+\end{teo}
+
+\begin{teo} Sea $U \sim U(0,1)$ y $G$ una acumulada. Existe $H$ tal que 
+$H(U)$ tiene funci'on de distribuci'on acumulada $G$.
+\end{teo}
+
+\section{Vectores aleatorios}
+
+\newcommand{\pxy}[0]{p_{XY}}
+\newcommand{\fxy}[0]{f_{XY}}
+\newcommand{\Fxy}[0]{F_{XY}}
+
+\begin{defi}[probabilidad conjunta]
+Sean $X$ e $Y$ v.a. discretas sobre el mismo espacio muestral $S$. La 
+\emph{funci'on de probabilidad conjunta} del par $(X,Y)$ se define como:
+$\pxy(x,y) = P(X = x, Y = y)$.
+\end{defi}
+
+\begin{teo}[propiedades de la probabilidad conjunta]
+Una funci'on de probabilidad conjunta satisface
+\begin{enumerate}
+\item $\forall x,y \pxy(x,y) \geq 0$
+\item $\sum_x \sum_y \pxy(x,y) = 1$.
+\end{enumerate}
+\end{teo}
+
+\begin{defi}[probabilidad marginal]
+Las \emph{funciones de probabilidad marginal} de $X$ e $Y$ est'an dadas por:
+$$p_X(x) = \sum_y \pxy(x,y) \mbox{\ \ y\ \ } p_Y(y) = \sum_x \pxy(x,y).$$
+\end{defi}
+
+\begin{defi}[acumulada conjunta discreta] La \emph{funci'on de distribuci'on
+acumulada conjunta} de $(X,Y)$ est'a dada por
+$$\Fxy(x,y) = \sum_{s \leq x} \sum_{t \leq y} \pxy(s,t).$$
+\end{defi}
+
+\begin{defi}[densidad conjunta] $(X,Y)$ es un vector aleatorio continuo
+si existe una funci'on llamada \emph{funci'on de densidad conjunta} $\fxy$ tal
+que:
+$$P((X,Y) \in A \subseteq \R^2) = \iint_A \fxy(x,y)\ dx\ dy.$$
+\end{defi}
+
+\begin{obs} En particular si $A = [a,b] \times [c,d]$, 
+$$P(x \in A) = \int_a^b \int_c^d \fxy(x,y)\ dx\ dy.$$
+\end{obs}
+
+\begin{teo}[propiedades de la densidad conjunta]
+Una funci'on de densidad conjunta satisface
+\begin{enumerate}
+\item $\forall x,y \fxy(x,y) \geq 0$
+\item $\iint_{\R^2} \fxy(x,y)\ dx\ dy = 
+	\int_{-\infty}^\infty \int_{-\infty}^\infty \fxy(x,y)\ dx\ dy = 1$.
+\end{enumerate}
+\end{teo}
+
+\begin{defi}[densidad marginal]
+Las \emph{funciones de densidad marginal} de $X$ e $Y$ est'an dadas por:
+$$f_X(x) = \int_{-\infty}^\infty \fxy(x,y)\ dy \mbox{\ \ y\ \ } 
+	f_Y(y) = \int_{-\infty}^\infty \fxy(x,y)\ dx.$$
+\end{defi}
+
+\begin{defi}[acumulada conjunta continua] La \emph{funci'on de distribuci'on
+acumulada conjunta} de $(X,Y)$ est'a dada por
+$$\Fxy(x,y) = \int_{-\infty}^x \int_{-\infty}^y \fxy(s,t)\ dt\ ds.$$
+\end{defi}
+
+\begin{defi}[probabilidad condicional] Sea $(X,Y)$ un vector aleatorio. La 
+funci'on de probabilidad condicional de $X$ dado que $Y=y$ est'a dada por
+$$p_{X|Y=y}(x) = \frac{\pxy(x,y)}{p_Y(y)}.$$
+\end{defi}
+
+\begin{defi}[densidad condicional] Sea $(X,Y)$ un vector aleatorio. La 
+funci'on de densidad condicional de $X$ dado que $Y=y$ est'a dada por
+$$f_{X|Y=y}(x) = \frac{\fxy(x,y)}{f_Y(y)}.$$
+\end{defi}
+
+\begin{defi}[independencia]
+$X$ e $Y$ son independientes si $\pxy(x,y)=p_X(x)p_Y(y)$
+\end{defi}
+
+\begin{obs}[independencia] 
+Si $X$ e $Y$ son independientes $p_X = p_{X|Y=y}$ para todo $y$.
+\end{obs}
+
+\begin{defi}[esperanza de una funci'on de 2 v.a.]
+$$E(h(X,Y)) = \sum_x \sum_y h(x,y) \pxy(x,y),$$
+$$E(h(X,Y)) = \iint_{\R^2} h(x,y) \fxy(x,y)\ dx\ dy.$$
+\end{defi}
+
+\begin{teo}[linealidad de la esperanza]
+$$E(aX + bY + c) = aE(X) + bE(Y) + c.$$
+\end{teo}
+
+\begin{teo}[esperanza de independientes]
+Si $X$ e $Y$ son independientes entonces
+$$E(XY) = E(X)E(Y).$$
+\end{teo}
+
+\begin{defi}[covarianza]
+La covarianza de las v.a. $X$ e $Y$ se define como 
+$\Cov(X,Y) = E[(X-\mu_X)(Y-\mu_Y)]$.
+\end{defi}
+La idea intuitiva es que la covarianza es cercana a $0$ cuanto mas
+independientes son las variables. Si es lejana al $0$, el signo indica si la
+correlaci'on es positiva o negativa.
+
+\begin{obs}[covarianza y varianza]
+$\Cov(X,X) = V(X)$.
+\end{obs}
+
+\begin{teo}[covarianza]
+$$\Cov(X,Y) = E(XY)Add your Gmail inbox to the Google homepage.
+You are currently using 1357 MB (19%) of your 6976 MB.
+Last account activity: 10 hours ago at this IP (200.114.228.183).  Details
+Gmail view: standard | turn off chat | basic HTML  Learn more
+©2008 Google - Terms - Google Home - E(X)E(Y).$$
+\end{teo}
+
+\begin{teo}[covarianza e independencia]
+Si $X$ e $Y$ son independientes, entonces $\Cov(X,Y) = 0.$ La rec'iproca no
+vale.
+\end{teo}
+
+\begin{defi}[coeficiente de relaci'on]
+El \emph{coeficiente de relaci'on} es una estandarizaci'on de la covarianza
+para que no dependa de las unidades. Se define como
+$$\rho(X,Y) = \frac{\Cov(X,Y)}{\sigma_X \sigma_Y} =
+	\frac{\Cov(X,Y)}{\sqrt{V(X)V(Y)}}.$$
+\end{defi}
+
+\begin{teo}[coeficiente de relaci'on]
+El coeficiente de relaci'on cumple lo siguiente:
+\begin{enumerate}
+\item $\rho(aX+b,cY+d) = \frac{ab}{|ab|} \rho(X,Y).$
+\item $-1 \leq \rho(X,Y) \leq 1$
+\item $|\rho(X,Y)| = 1 \Leftrightarrow	Y = aX+b$ con probabilidad $1$. Notar
+que el coeficiente mide la relaci'on lineal entre las variables.
+\end{enumerate}
+\end{teo}
+
+\subsection{Extensi\'on a m\'as de dos dimensiones}
+
+\begin{defi}[probabilidad conjunta]
+Si $X_1,...,X_k$ son variables aleatorias discretas, su \emph{funci'on de
+probabilidad conjunta} es 
+$$p_{X_1,...,X_k}(x_1,...,x_k) = P(X_1 = x_1,...,X_k = x_k).$$
+Dado $A \in \R^k$ 
+$$P((X_1,...,X_k) \in A) = 
+	\sum_{(x_1,...,x_k) \in A} p_{X_1,...,X_k}(x_1,...,x_k).$$
+\end{defi}
+
+\begin{teo}[propiedades de la probabilidad conjunta]
+La probabilidad conjunta cumple:
+\begin{enumerate}
+\item $p_{X_1,...,X_k}(x_1,...,x_k) \geq 0$
+\item $\sum_{(x_1,...,x_k) \in \R^k} p_{X_1,...,X_k}(x_1,...,x_k) = 1$
+\end{enumerate}
+\end{teo}
+
+\begin{defi}[probabilidad marginal]
+La \emph{probabilidad marginal} de un subvector $X_{i_1},...,X_{i_{k'}}$
+est'a dada por:
+$$p_{X_{i_1},...,X_{i_{k'}}}(x_{i_1},...,x_{i_{k'}}) = 
+	\sum_{(x_{j_1},...,x_{j_{k-k'}}) \in \R^{k-k'}} 
+		p_{X_1,...,X_k}(x_1,...,x_k),$$
+donde $\{i_1,...,i_k,j_1,...,j_{k-k'}\} = \{1,...,k\}$.
+\end{defi}
+
+\subsection{Distribuci'on Multinomial}
+
+Es una generalizaci'on de la distribuci'on binomial. Hay $n$ experimentos
+posibles de $k$ resultados posibles con probabilidades $p_1,...,p_k$ tal que
+$\sum_i p_i = 1$. Es vector aleatorio de la multinomial es $(X_1,...,X_k)$
+donde $X_i$ es el n'umero de veces que sali'o el resultado $i$. Escribimos 
+$$X \sim M(n,p_1,...,p_k).$$
+
+\begin{defi}[probabilidad conjunta distribuci'on multinomial]
+Si $(X_1,...,X_k) \sim M(n,p_1,...,p_k)$ entonces
+$$p_{X_1,...,X_k}(x_1,...,x_k) = n! \prod_{i=1}^k \frac{p_i^{x_i}}{x_i!}.$$
+\end{defi}
+
+\begin{obs}
+Si $(X_1,...,X_k) \sim M(n,p_1,...,p_l)$ entonces $X_i \sim Bi(n,p_i)$. En
+general las marginales de una multinomial son binomiales o multinomiales.
+\end{obs}
+
+\begin{defi}[densidad conjunta]
+$X_1,...,X_k$ son v.a. continuas si tienen una \emph{funci'on de
+densidad conjunta} 
+$$f_{X_1,...,X_k}(x_1,...,x_k).$$
+Tal que dado $A \subseteq \R^k$ 
+$$P((X_1,...,X_k) \in A) = 
+	\int_A...\int p_{X_1,...,X_k}(x_1,...,x_k) dx_1...dx_k.$$
+\end{defi}
+
+\begin{teo}[propiedades de la densidad conjunta]
+La densidad conjunta cumple:
+\begin{enumerate}
+\item $f_{X_1,...,X_k}(x_1,...,x_k) \geq 0$
+\item $\int_{\R^k}...\int f_{X_1,...,X_k}(x_1,...,x_k) dx_1...dx_k = 
+	\int_{-\infty}^\infty...\int_{-\infty}^\infty f_{X_1,...,X_k}(x_1,...,x_k) 
+		dx_1...dx_k = 1$
+\end{enumerate}
+\end{teo}
+
+\begin{defi}[densidad marginal]
+La \emph{densidad marginal} de un subvector $X_{i_1},...,X_{i_{k'}}$ est'a dada
+por:
+$$f_{X_{i_1},...,X_{i_{k'}}}(x_{i_1},...,x_{i_{k'}}) = 
+	\int_{(x_{j_1},...,x_{j_{k-k'}}) \in \R^{k-k'}}...\int
+		f_{X_1,...,X_k}(x_1,...,x_k) dx_{j_1}...dx_{j_{k-k'}},$$
+donde $\{i_1,...,i_k,j_1,...,j_{k-k'}\} = \{1,...,k\}$.
+\end{defi}
+
+\begin{defi}[independencia]
+$X_1,...X_k$ son vectores aleatorios independientes sii:
+$$p_{X_1,...,X_k}(x_1,...,x_k) = \prod_{i=1}^k p_{X_i}(x_i)\mbox{, o}$$
+$$f_{X_1,...,X_k}(x_1,...,x_k) = \prod_{i=1}^k f_{X_i}(x_i).$$
+\end{defi}
+
+Para buscar la distribuci'on de una funci'on $g$ de varias variables aleatorias
+de las que se sabe la conjunta, si es continua se puede plantear la ecuaci'on
+$$P(g(X_1,...,X_k) = x) = 
+	\sum_{(x_1,...,x_k) \in \R^k | g(x_1,...,x_k) = x}
+		P((X_1,...,X_k) = (x_1,...,x_k)).$$
+Para las continuas, por otro lado, se debe plantear
+$$F_{g(X_1,...,X_k)}(x) = P(g(X_1,...,X_k) \leq x) = 
+	\int_{(x_1,...,x_k) \in \R^k | g(x_1,...,x_k) \leq x} ... \int
+		f_{X_1,...,X_k}(x_1,...,x_k) dx_1...dx_k.$$
+
+\begin{teo}[Suma de binomiales]
+Si $X \sim Bi(n,p)$ e $Y \sim Bi(m,p)$ son independientes, entonces 
+$X+Y \sim Bi(n+m,p)$.
+\end{teo}
+
+\begin{teo}[Suma de poisson]
+Si $X \sim P(\lambda)$ e $Y \sim P(\mu)$ son independientes, entonces 
+$X+Y \sim P(\lambda + \mu)$.
+\end{teo}
+
+\begin{teo}[Suma de geom'etricas]
+Si $X_i \sim G(p)$ son independientes, entonces $\sum_i X_i \sim BN(n,p)$.
+\end{teo}
+
+\begin{teo}[Suma de exponenciales]
+Si $X \sim \expon(\lambda)$ e $Y \sim \expon(\lambda)$ son independientes, 
+entonces $X+Y \sim \Gamma(2, \lambda)$.
+\end{teo}
+
+\begin{teo}[Suma de gamma]
+Si $X \sim \Gamma(\alpha, \lambda)$ e $Y \sim \Gamma(\beta, \lambda)$ son
+independientes, entonces $X+Y \sim \Gamma(\alpha+\beta, \lambda)$.
+\end{teo}
+
+\begin{teo}[Suma de normales]
+Si $X \sim N(\mu,\sigma^2)$ e $Y \sim N(\mu', {\sigma^2}')$ son independientes,
+entonces $aX+bY \sim N(a\mu+b\mu', a^2\sigma^2+b^2{\sigma^2}')$.
+\end{teo}
+
+\begin{teo}[Generadora de momentos de la suma]
+Si $X$ e $Y$ son independientes entonces $$M_{X+Y}(t) = M_X(t) M_Y(t).$$
+\end{teo}
+
+\begin{teo}[Esperanza y varianza de la suma]
+$$E(aX+bY) = aE(x)+bE(y) \mbox{\ \ y\ \ } 
+	V(aX+bY) = a^2V(X)+b^2V(Y)+2ab\Cov(X,Y).$$
+\end{teo}
+
+\begin{teo}[Esperanza y varianza del promedio]
+Sean $X_1,...,X_n$ v.a.i.i.d. (variables aleatorias independientes 
+id'enticamente distribuidas) con $E(X_i) = \mu$ y $V(X_i) = \sigma^2$. 
+Entonces 
+$$E(\bar{X}) = \mu \mbox{\ \ y\ \ } V(\bar{X}) = \frac{\sigma^2}{n}.$$
+\end{teo}
+
+\begin{teo}[desigualdad de Chebyshev]
+Si $X$ es una v.a. con $E(X) = \mu$ y $V(X) = \sigma^2$ entonces:
+\begin{enumerate}
+\item $\forall \eps > 0\ P(|X - \mu| > \eps) \leq \frac{\sigma^2}{\eps^2}$
+\item $\forall k > 0\ P(|X - \mu| > k\sigma) \leq \frac{1}{k}$
+\end{enumerate}
+\end{teo}
+
+\begin{defi}[l'imite en probabilidad]
+Diremos que una sucesi'on de v.a. $X_n$ tiende en probabilidad a la v.a. $X$
+y notaremos $X_i \tiendep X$ sii
+$$\forall \eps > 0\ \limite{n}{\infty} P(|X_n - X| > \eps) = 0.$$
+\end{defi}
+
+\begin{teo}[ley de los grandes n'umeros]
+Sean $X_1,X_2,...$ v.a.i.i.d. (muestra aleatoria) con $E(X_i) = \mu$ y 
+$V(X_i) = \sigma^2 < \infty$, entonces $\bar{X_n} \tiendep \mu$ donde
+$\bar{X_n} = \sum_{i=1}^n X_i / n$.
+\end{teo}
+Usando esta idea con la desigualdad de Chebyshev se puede encontrar la m'inima 
+cantidad de repeticiones de un experimento para estimar la media con error
+menor a un valor dado.
+
+\begin{teo}[teorema central del l'imite]
+Sean $X_1,X_2,...$ v.a.i.i.d. con $E(X_i)=\mu$ y $V(X_i)=\sigma^2 < \infty$,
+entonces si $n$ es suficientemente grande
+$$\frac{\sqrt(n)(\bar{X} - \mu)}{\sigma} \tiended Z \sim N(0,1),$$
+donde $\tiended$ quiere decir que
+$$P\left(\frac{\sqrt(n)(\bar{X} - \mu)}{\sigma} \leq a\right)\simeq\Phi(a).$$
+\end{teo}
+
+\begin{obs}[correcci'on por continuidad]
+Cuando se usa el teorema central del l'imite para aproximar variables discretas
+tiene un problema. Si se calcula $P(X \leq k) + P(X \geq k+1)$ deber'ia dar 1,
+pero en la aproximaci'on se pierde la medida del intervalo $[k,k+1]$ que por
+ser la aproximaci'on continua, no es 0. Para esto se estima $P(X \leq k)$ como
+$P(X \leq (k+k')/2)$ donde $k'$ es el valor del rango de la v.a. inmediato 
+siguiente a $k$.
+\end{obs}
+
+\begin{obs}[aproximaciones normales]
+Algunas distribuciones, como la binomial, la poisson o la gamma, son sumas de 
+s'i misma. Por lo tanto si el parametro sobre el cual se suma es
+suficientemente grande, es posible aproximarla por una normal como si se
+estuviera aproximando la suma.
+\end{obs}
+
+\section{Medidas de res'umen}
+
+\begin{defi}[promedio o media muestral]
+El \emph{promedio} o \emph{media muestral} de una muestra aleatoria 
+$x_1,...,x_n$ est'a dado por
+$$\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i.$$
+\end{defi}
+La media muestra es muy sensible a la presencia de anomal'ias.
+
+\begin{defi}[mediana muestral]
+La \emph{mediana muestral} de una muestra aleatoria $x_1 \leq x_2 \leq ...
+\leq x_n$ est'a dada por
+$$\tilde{x} = 
+	\begin{cases}
+	x_k & x = 2k \\
+	\frac{1}{2}(x_k+x_{k+1}) & x = 2k+1.
+	\end{cases}$$
+\end{defi}
+
+\begin{defi}[media $\alpha$-podada]
+La \emph{media $\alpha$-podada} de una muestra aleatoria $x_1 \leq x_2 \leq ...
+\leq x_n$ se define como la media de $x_{[\alpha n] + 1},...,x_{n-[\alpha n]}$
+\end{defi}
+
+\begin{obs}[media, mediana y media $\alpha$-podada]
+La media $\alpha$-podada es un intermedio entre media y mediana. La media es
+la media $0$-podada y la mediana la media $(0.5-\eps)$-podada.
+\end{obs}
+
+\begin{defi}[rango muestral]
+El \emph{rango muestral} de una muestra aleatoria $x_1 \leq x_2 \leq ...
+\leq x_n$ se define como $x_n - x_1$.
+\end{defi}
+El rango muestral es muy sensible a la presencia de outliers.
+
+
+\begin{defi}[varianza y desv'io muestral]
+La \emph{varianza muestral} de una muestra aleatoria $x_1,...,x_n$ se define
+como 
+$$S^2 = \sum_{i=1}^n (x_i-\bar{x}) \frac{1}{n-1}$$
+y el desv'io como $S = \sqrt{S^2}$.
+\end{defi}
+
+\begin{defi}[coeficiente de variaci'on]
+El \emph{coeficiente de variaci'on} de una muestra aleatoria $x_1,...,x_n$
+son desv'io $S$ se define como $S / \bar{x}$.
+\end{defi}
+
+\begin{defi}[percentiles y cuartiles]
+El \emph{percentil} $100 \alpha$ de la muestra $x_1,...,x_n$ es 
+$x_{\lceil\alpha (n+1)\rceil}$ si $\alpha (n+1)$ es entero o mayor a $n$ y 
+$(x_{\lfloor\alpha (n+1)\rfloor}+x_{\lceil\alpha (n+1)\rceil})/2$ en otro caso.
+Llamaremos primer, segundo y tercer \emph{cuartil} a los percentiles $25$, 
+$50$ y $75$ respectivamente. El primer y tercer cuartiles tambien se llaman
+cuartil inferior y superior.
+\end{defi}
+
+\begin{defi}[distancia intercuartil]
+Se define como la diferencia entre los cuartiles inferior y superior.
+\end{defi}
+Es menos sensible a outliers que la varianza, el desv'io y el rango.
+
+\begin{defi}[cuartos y distancia intercuartos]
+El \emph{cuarto inferior} es la mediana de la mitad inferior de la muestra
+(redondeado hacia arriba). El \emph{cuarto superior} es la mediana de la mitad
+superior. La \emph{distancia intercuartos} es la diferencia entre ambos.
+\end{defi}
+Cuartos y cuartiles son muy similares.
+
+\begin{defi}[desv'io absoluto mediano]
+El \emph{desv'io absoluto mediano} de la muestra $x_1 \leq x_2 \leq ... \leq 
+x_n$ se define como la mediana de las distancias a la mediana
+$\MAD = \mbox{mediana}(|x_i - \tilde{x}|)$.
+\end{defi}
+
+\begin{defi}[n'umeros de res'umen]
+Los 5 n'umeros de res'umen de una muestra son el m'inimo, el m'aximo, la
+mediana y los cuartiles.
+\end{defi}
+
+\section{Gr\'aficos}
+
+
+\textbf{Tallo hoja}. Se pone la parte mas significativa de la medici'on como
+tallo y se usa para agrupar. Como hoja se pone la parte menos significativa
+(se repite una sola vez el tallo por cada grupito y luego una lista de las
+hojas).
+
+
+\textbf{Tallo hoja espalda con espalda}. Para comparar 2 grupos de mediciones,
+se usa el mismo tallo y se ponen ambas listas de hojas una hacia cada lado.
+
+
+\textbf{Histograma}. Se divide la muestra en intervalos disjuntos y se grafica
+una barra para cada intervalo con area igual a la frecuencia (o frecuencia 
+relativa) de las mediciones dentro del intervalo.
+
+
+\textbf{Box-plot}. Se hace una caja entre los dos cuartiles con un segmento en
+el medio indicando la mediana. Luego se hacen rectas que salen de la caja hasta
+el valor mas alejado hacia cada lado menor o igual a 1.5 de la distancia
+intercuartil (bigotes). Los valores que quedan fuera de este rango se
+representan con puntos individuales y son considerados an'omalos (outliers).
+
+
+\textbf{Box-plot} paralelos. Para comparar varios conjuntos de muestras, se 
+hace un box plot para cada una paralelos con la misma escala en el eje Y.
+
+
+\textbf{QQ-plot}. Sirve para ver si una muestra se parece una distribuci'on. 
+En el eje X se ponen los puntos observados ordenados y en el eje Y percentiles 
+equidistribuidos de la distribuci'on te'orica y se observa cu'anto se parece a
+una recta el gr'afico obtenido.
+
+\section{M\'etodos de estimaci\'on puntual}
+
+Nota: Notaremos con $X_1,...,X_n$ las v.a. que representan la medici'on antes
+de hacerla y como $x_1,...,x_n$ los valores de las mediciones propiamente
+dichas. Cualquier funci'on de los $X_i$ sera una v.a.
+
+\begin{defi}[momentos muestrales]
+Dada una muestra aleatoria (m.a.) $X_1,...,X_n$ definimos el momento muestral 
+de 'orden $k$ como 
+$$\frac{1}{n} \sum_{i=1}^m X_i^k.$$
+\end{defi}
+
+\begin{defi}[estimaci'on de momentos]
+La \emph{estimaci'on de momentos} de los $k$
+par'ametros de una distribuci'on dada una muestra $X_1,...,X_n$ estima
+los par'ametros como las soluciones del sistema de ecuaciones que resulta
+de igualar los primeros momentos de la distribuci'on con el correspondiente
+momento muestral (la cantidad necesaria de momentos a igualar dependen de la
+distribuci'on).
+\end{defi}
+
+\begin{teo}[estimador de momentos de la exponencial]
+Si $X_1,...,X_n$ es una m.a. de una distribuci'on $\expon(\lambda)$ entonces
+su estimador de momentos es $\hat{\lambda} = 1 / \bar{X}$.
+\end{teo}
+
+\begin{teo}[estimador de momentos de la gamma]
+Si $X_1,...,X_n$ es una m.a. de una distribuci'on $\Gamma(\alpha,  \lambda)$
+entonces su estimador de momentos es 
+$$\hat{\lambda} = \frac{\bar{X}}{-\bar{X}^2 + \frac{1}{n}\sum_{i=1}^n X_i^2}
+\mbox{\ \ y\ \ }
+\hat{\alpha} = \frac{\bar{X}^2}{-\bar{X}^2 + \frac{1}{n}\sum_{i=1}^n X_i^2}.$$
+\end{teo}
+
+\begin{teo}[estimador de momentos de la uniforme]
+Si $X_1,...,X_n$ es una m.a. de una distribuci'on $U(0,\theta)$ entonces
+su estimador de momentos es $\hat{\theta} = 2\bar{X}$.
+\end{teo}
+
+\begin{defi}[funci'on de verosimilitud y estimaci'on de m'axima verosimilitud]
+Sea una distribuci'on con funci'on de probabilidad puntual $p_{\vec{X}}$ o de
+densidad $f_{\vec{X}}$ que depende de par'ametros $\theta_1,...,\theta_k$. Si
+$x_1,...,x_n$ son los valores observados la \emph{funci'on de verosimilitd}
+$L(\theta_1,...,\theta_k)$ se define como $p$ o $f$ en el punto $x_1,...,x_n$
+usando $\theta_1,...,\theta_k$ como par'ametros. La \emph{estimaci'on de
+m'axima verosimilitud (EMV)} es el punto m'aximo de $L$.
+\end{defi}
+
+\begin{teo}[estimador de m'axima verosimilitud de la binomial]
+Sea $X_1,...,X_n$ una m.a. de un experimento binomial de par'ametro $p$.
+Su EMV es $\hat{p} = \bar{X}$.
+\end{teo}
+
+\begin{teo}[estimador de m'axima verosimilitud de la exponencial]
+Sea $X_1,...,X_n$ una m.a. de una distribuci'on $\expon(\lambda)$, entonces
+su EMV es $\hat{\lambda} = 1 / \bar{X}$.
+\end{teo}
+
+\begin{teo}[estimador de m'axima verosimilitud de la normal]
+Sea $X_1,...,X_n$ una m.a. de una distribuci'on $N(\mu,\sigma^2)$, entonces
+su EMV es 
+$$\hat{\mu} = \bar{X} \mbox{\ \ y \ \ } 
+	\hat{\sigma^2} = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^2.$$
+\end{teo}
+
+\begin{teo}[estimador de m'axima verosimilitud de la uniforme]
+Sea $X_1,...,X_n$ una m.a. de una distribuci'on $U(0,\theta)$, entonces
+su EMV es $\hat{\theta} = \max_i(X_i)$.
+\end{teo}
+
+\begin{teo}[invarianza de los EMV]
+Si $\tilde{\theta}_1,...,\tilde{\theta}_n$ son estimadores de m'axima
+verosimilitud de $\theta_1,...,\theta_n$ entonces
+para toda funci'on inyectiva $f$ $f(\tilde{\theta}_1,...,\tilde{\theta}_n)$ 
+lo es de $f(\theta_1,....,\theta_n)$.
+\end{teo}
+
+\begin{defi}[sesgo]
+El \emph{sesgo} de un estimador $\tilde{\theta}$ del par'ametro $\theta$ se
+define como $b(\tilde{\theta}) = E_\theta(\tilde{\theta}) - \theta$. Un
+estimador $\tilde{\theta}$ se dice \emph{insesgado} si $b(\tilde{\theta})=0$.
+\end{defi}
+
+\begin{defi}[asint'oticamente insesgado]
+Un estimador $\tilde{\theta}$ es \emph{asint'oticamente insesgado} si
+$\limite{n}{\infty} E_\theta(\tilde{\theta}) = \theta$.
+\end{defi}
+
+\begin{teo}[sesgo del estimador de momentos de la uniforme]
+El estimador de momentos $\tilde{\theta}$ de una $U(0,\theta)$ es insesgado.
+\end{teo}
+
+\begin{teo}[sesgo de EMVs conocidos]
+El EMV $\tilde{p}$ de una $Bi(n,p)$ es insesgado. El EMV $\tilde{\mu}$ de una
+normal es insesgado, pero el EMV $\tilde{\sigma^2}$ s'olo es asint'oticamente
+insesgado. El EMV $\tilde{\theta}$ de una $U(0,\theta)$ s'olo es 
+asint'oticamente insesgado.
+\end{teo}
+
+\begin{teo}[la varianza muestral es insesgado de la varianza]
+La varianza muestral $S^2$ es un estimador insesgado de $\sigma^2$ para
+cualquier distribuci'on.
+\end{teo}
+
+\begin{defi}[estimador insesgado de m'inima varianza]
+Se define como el \emph{estimador insesgado de varianza m'inima} (IMVU) al
+estimador $\tilde{\theta}$ insesgado tal que para todo estimador insesgado
+$\tilde{\theta}'$ pasa que 
+$V_\theta(\tilde{\theta}) \leq V_\theta(\tilde{\theta}')$.
+\end{defi}
+
+\begin{teo}[estimador IMVU de la normal]
+Si la m.a. $X_1,...,X_n$ viene de una $N(\mu,\sigma^2)$ entonces $\bar{X}$ es
+el estimador IMVU de $\mu$.
+\end{teo}
+
+\begin{defi}[error est'andar y error est'andar estimado]
+Si $\tilde{\theta}$ es un estimador su \emph{error est'andar} es 
+$\sqrt{V_\theta(\tilde{\theta})}$. Reemplazando en dicha expresi'on los
+par'ametros desconocidos por estimadores de los mismos se define el
+\emph{error est'andar estimado}.
+\end{defi}
+
+\begin{teo}[error de estimaci'on de la normal]
+Si la m.a. $X_1,...,X_n$ viene de una $N(\mu,\sigma^2)$ y consideramos el
+estimador $\bar{X}$ de $\mu$ su error est'andar es $\sqrt{\sigma^2/n}$ y
+estimado $\sqrt{S^2/n}$.
+\end{teo}
+
+\begin{defi}[error cuadr'atico medio]
+El \emph{error cuadr'atico medio} de $\tilde{\theta}$
+es $\ECM_\theta(\tilde{\theta}) = E_\theta[(\tilde{\theta}-\theta)^2]$.
+\end{defi}
+
+\begin{teo}[relaci'on entre ECM y varianza]
+$\ECM_\theta(\tilde{\theta}) = V_\theta(\tilde{\theta}) + b(\tilde{\theta})^2$.
+\end{teo}
+
+\begin{defi}[estimador de menor ECM]
+Se define un estimador como tomar, entre varios estimadores, el de menor
+ECM. Es una forma de hacer trade-off entre la varianza y el sesgo. Para
+estimadores insesgados, el criterio es obviamente igual al de m'inima varianza.
+\end{defi}
+
+\begin{defi}[consistencia]
+Un estimador $\tilde{\theta}_n$ basado en la muestra $X_1,...,X_n$ es
+\emph{consistente} si $\tilde{\theta}_n \tiendep \theta$.
+\end{defi}
+
+\begin{teo}[media consistente]
+$\bar{X}$ es un estimador consistente de $\mu = E(X)$.
+\end{teo}
+
+\begin{teo}[varianza consistente]
+$S^2_X$ es un estimador consistente de $\sigma^2 = V(X)$.
+\end{teo}
+
+\begin{teo}[consistencia]
+Si 
+$$\limite{n}{\infty} E_\theta(\tilde{\theta}_n) = \theta \mbox{\ \ y \ \ }
+\limite{n}{\infty} V_\theta(\tilde{\theta}_n) = 0$$
+el estimador $\tilde{\theta}_n$ consistente.
+\end{teo}
+
+\section{Intervalos de confianza}
+
+\begin{defi}[intervalo de confianza]
+Sea $X_1,...,X_n$ una m.a. dependiente de un par'ametro $\theta$ y dos
+funciones de la misma a y b tal que
+$$P(a(X_1,...,X_n) \leq \theta \leq b(X_1,...,X_n)) = 1-\alpha,$$
+con $\alpha$ cercano a $0$. Se llama \emph{intervalo de confianza} para 
+$\theta$ de nivel $1-\alpha$ a $[a(X_1,...,X_n),b(X_1,...,X_n)]$.
+\end{defi}
+
+\begin{defi}[distribuci'on de Student]
+Si $Z \sim N(0,1)$ y $U \sim \chi^2_n = \Gamma(n/2,1/2)$ son independientes
+entonces
+$$T = \frac{Z}{\sqrt(U/n)} \sim t_n$$
+donde $t_n$ es la \emph{distribuci'on de student} con $n$ grados de libertad.
+Est'a tabulada para distintos valores de $n$ y tiende a una normal standard
+cuando $n \rightarrow \infty$.
+\end{defi}
+
+\begin{teo}
+Sea $X_1,...,X_n$ una m.a. de una $N(\mu,\sigma^2)$, se cumple que:
+\begin{enumerate}
+\item $\bar{X} \sim N(\mu,\sigma^2/n) \Leftrightarrow 
+	\sqrt{n}\frac{\bar{X}-\mu}{\sigma} \sim N(0,1)$
+\item $(n-1)S^2 / \sigma^2 \sim \chi^2_{n-1}$
+\item $\bar{X}$ y $S^2$ son independientes.
+\item $\sqrt{n}\frac{\bar{x}-\mu}{S} \sim t_{n-1}$
+\end{enumerate}
+\end{teo}
+
+\textbf{Notaci'on}: $z_\alpha = P(X \sim N(0,1) \leq \alpha)$, 
+$t_{n,\alpha} = P(X \sim Student(n) \geq \alpha)$, 
+$\chi^2_{n,\alpha} = P(X \sim \chi^2_n \geq \alpha)$.
+
+\begin{teo}[intervalos de confianza para la normal]
+Si $X_1,...,X_n$ es una m.a. de distribucion $N(\mu,\sigma^2)$ y queremos
+intervalos de confianza de nivel $1-\alpha$ entonces
+\begin{enumerate}
+\item Si $\sigma^2 = \sigma^2_0$ es conocida, el intervalo para $\mu$ es
+$$\left[\bar{X}-\frac{z_{1-\alpha/2}\sigma_0}{\sqrt{n}},
+	\bar{X}+\frac{z_{1-\alpha/2}\sigma_0}{\sqrt{n}}\right].$$
+\item Si $\mu = \mu_0$ es conocida, el intervalo para $\sigma^2$ es
+$$\left[\frac{\displaystyle \sum_{i=1}^n (X_i - \mu_0)^2}
+			 {\chi^2_{n,1-\alpha/2}},
+	\frac{\displaystyle \sum_{i=1}^n (X_i - \mu_0)^2}
+		 {\chi^2_{n,\alpha/2}}\right].$$
+\item Si son ambos par'ametros desconocidos el intervalo para $\mu$ es
+$$\left[\bar{X}-t_{n-1,\alpha/2} \frac{S}{\sqrt{n}},
+	\bar{X}+t_{n-1,\alpha/2} \frac{S}{\sqrt{n}}\right]$$
+y para $\sigma$
+$$\left[\frac{(n-1)S^2}{\chi^2_{n-1,1-\alpha/2}},
+	\frac{(n-1)S^2}{\chi^2_{n-1,\alpha/2}}\right].$$
+\end{enumerate}
+\end{teo}
+
+\begin{defi}[pivote]
+Sea $X_1,...,X_n$ una m.a. dependiente de $\theta$, se llama \emph{pivote} a
+una funci'on $T(X_1,...,X_n,\theta)$ cuya distribuci'on no depende de $\theta$
+ni de ning'un otro par'ametro. 
+\end{defi}
+Entonces, se toman $a$ y $b$ tal que
+$$P(a \leq T(X_1,...,X_n,\theta) \leq b) = 1 - \alpha.$$
+Despejando se obtiene un intervalo de confianza para $\theta$.
+
+\begin{defi}[intervalos de confianza de nivel asint'otico]
+Sea $X_1,X_2,...$ una m.a. dependiente de un par'ametro $\theta$ y dos
+sucesiones de funciones de la misma a y b tal que
+$$\limite{n}{\infty} P(a_n(X_1,...,X_n) \leq \theta \leq P(b_n(X_1,...,X_n))
+	= 1-\alpha,$$
+con $\alpha$ cercano a $0$. Se llama \emph{sucesi'on de intervalos de
+confianza} para $\theta$ de \emph{nivel asint'otico} $1-\alpha$ a 
+$[a_n(X_1,...,X_n),b_n(X_1,...,X_n)]$. Tambi'en se dice que para $n$
+suficientemente grande $[a_n(X_1,...,X_n),b_n(X_1,...,X_n)]$ tiene nivel
+aproximado $1-\alpha$.
+\end{defi}
+
+\begin{teo}[intervalos de confianza aproximados por la normal]
+Como $\sqrt{n}(\bar{X}-\mu)/\sigma \tiended N(0,1)$ podemos usar la normal
+para determinar intervalos de confianza aproximados. En particular el intervalo
+de confianza de nivel aproximado $1-\alpha$ de $\mu = E(X_i)$ con $\sigma$
+desconocido es
+$$\left[\bar{X}-z_{\alpha/2}\frac{s}{\sqrt{n}},
+	\bar{X}+z_{\alpha/2}\frac{s}{\sqrt{n}}\right].$$
+\end{teo}
+
+\section{Test de hip'otesis}
+
+\begin{defi}[hip'otesis]
+Se denomina \emph{hip'otesis nula} y se nota $H_0$ a la hip'otesis que implica
+el statu quo. Por otro lado, la \emph{hip'otesis alternativa} o 
+\emph{hip'otesis del investigador} $H_1$ es la que implica un cambio.
+\end{defi}
+
+\begin{defi}[zona de rechazo]
+La \emph{zona de rechazo} es el conjunto de valores para los cuales
+se rechaza la hip'otesis nula. Su forma depende de como sea la hip'otesis
+alternativa.
+\end{defi}
+
+\begin{defi}[test de hip'otesis]
+Un \emph{test de hip'otesis} se basa en un estad'istico (funci'on de la
+muestra) y una zona de rechazo.
+\end{defi}
+
+\begin{defi}[p-valor]
+Definimos como p-valor a la probabilidad de que el estad'istico tenga un valor
+menor o igual al observado si $H_0$ es cierta (suponiendo que $H_1$ es de la
+forma $\theta > \theta_0$ y que el estad'istico es creciente en $\theta$).
+\end{defi}
+
+\begin{defi}[nivel de significaci'on del test]
+El \emph{nivel de significaci'on del test}, notado $\alpha$ es la probabilidad
+de de rechazar $H_0$ si es cierta. A la probabilidad de no rechazarla dado que
+no es cierta se la nota por $\beta$.
+\end{defi}
+En general construimos el estad'istico suponiendo que $H_0$ es cierta, asi que
+podemos controlar $\alpha$ y es lo que haremos.
+
+\begin{defi}[funci'on de potencia]
+La \emph{funci'on de potencia} de un test $\pi(\mu)$ es la 
+probabilidad de rechazar $H_0$ cuando el verdadero valor del par'ametro es
+$\mu$ (i.e., la probabilidad de la zona de rechazo). Depende de ambos tipos de 
+error, pues
+$$\pi(\mu) =
+	\begin{cases}
+		\alpha(\mu) & \mu \in H_0 \\
+		1-\beta(\mu) & \mu \in H_1 \\
+	\end{cases}$$
+\end{defi}
+
+\begin{teo}[test para la normal de varianza conocida]
+Para testear contra el valor $\mu_0$ el estad'istico del test es
+$$T = \sqrt{n} \frac{\bar{X}-\mu_0}{\sigma_0} \sim N(0,1)$$
+Seg'un cual sea $H_1$ la zona de rechazo y la funci'on de potencia ser'an
+\begin{enumerate} 
+\item $H_1 = \mu > \mu_0$: $T \geq z_\alpha$, 
+$\displaystyle \pi(\mu) = 
+	1-\Phi\left(z_\alpha+\sqrt{n}\frac{\mu_0-\mu}{\sigma_0}\right)$.
+\item $H_1 = \mu < \mu_0$: $T \leq -z_\alpha$,
+$\displaystyle \pi(\mu) = 
+	\Phi\left(-z_\alpha+\sqrt{n}\frac{\mu_0-\mu}{\sigma_0}\right)$.
+\item $H_1 = \mu \neq \mu_0$: $|T| \geq z_{\alpha/2}$, 
+$\displaystyle \pi(\mu) = 
+	1-\Phi\left(z_{\alpha/2}+\sqrt{n}\frac{\mu_0-\mu}{\sigma_0}\right)
+	 +\Phi\left(-z_{\alpha/2}+\sqrt{n}\frac{\mu_0-\mu}{\sigma_0}\right)$.
+\end{enumerate}
+\end{teo}
+
+\begin{teo}[test para la normal de varianza desconocida]
+Para testear contra el valor $\mu_0$ el estad'istico del test es
+$$T = \sqrt{n} \frac{\bar{X}-\mu_0}{S} \sim t_{n-1}$$
+Seg'un cual sea $H_1$ la zona de rechazo ser'a
+\begin{enumerate} 
+\item $H_1 = \mu > \mu_0$: $T \geq t_{n-1,\alpha}$.
+\item $H_1 = \mu < \mu_0$: $T \leq -t_{n-1,\alpha}$.
+\item $H_1 = \mu \neq \mu_0$: $|T| \geq t_{n-1,\alpha/2}$.
+\end{enumerate}
+\end{teo}
+
+\begin{teo}[test para la varianza de la normal con media desconocida]
+Para testear contra el valor $\mu_0$ el estad'istico del test es
+$$T = \frac{(n-1)S^2}{\sigma_0^2} \sim \chi^2_{n-1}$$
+Seg'un cual sea $H_1$ la zona de rechazo ser'a
+\begin{enumerate} 
+\item $H_1 = \mu > \mu_0$: $T \geq \chi^2_{n-1,\alpha}$.
+\item $H_1 = \mu < \mu_0$: $T \leq \chi^2_{n-1,1-\alpha}$.
+\item $H_1 = \mu \neq \mu_0$: $T \geq \chi^2_{n-1,\alpha/2}$ 'o 
+	$T \leq \chi^2_{n-1,1-\alpha/2}$.
+\end{enumerate}
+\end{teo}
+
+\begin{teo}[test aproximado para la media de una distribuci'on cualquier]
+Como $X_n \tiended N(0,1)$ podemos usar un test similar al de la normal usando
+$s$ en lugar de $\sigma$ (ya que $s \rightarrow \sigma$).
+\end{teo}
+
+\newpage
+
+\section{Res'umen de distribuciones}
+\label{sec:resumen}
+
+\subsection{Distribuciones Discretas}
+$$
+\begin{array}{l|l|c|c|c|c}
+\mathbf{\mbox{Nombre}} & \mathbf{X \sim} & \mathbf{p_X(k)}
+	& \mathbf{E(X)} & \mathbf{V(X)} &  \mathbf{M_X(t)} \\\hline\hline
+\mbox{Binomial} & Bi(n,p) & \displaystyle {n \choose k}p^k(1-p)^{n-k} & 
+	np & np(1-p) & \displaystyle (e^t p + 1 - p)^n \\\hline
+\mbox{Geom'etrica} & G(p) & (1-p)^{k-1}p & \bigfrac{1}{p} & \bigfrac{1-p}{p^2}
+	& \bigfrac{pe^t}{1-(1-p)e^t}\\\hline
+\mbox{Binomial Negativa} & BN(p,r) & 
+	\displaystyle {k-1 \choose r-1} (1-p)^{k-r}p^r &
+	\bigfrac{r}{p} & \bigfrac{r(1-p)}{p^2} & 
+	\left(\bigfrac{p e^t}{1 - (1-p)e^t}\right)^r \\\hline
+\mbox{Hipergeom'etrica} & H(n,N,D) & 
+	\frac{ \displaystyle {D \bigchoose k} {N-D \bigchoose n-k} }
+		 { \displaystyle {N \bigchoose n}  } & n\bigfrac{D}{N} &
+	\left(\bigfrac{N-n}{N-1}\right)n\bigfrac{D}{N}\left(1-\bigfrac{D}{N}\right)
+	\\\hline
+\mbox{Poisson} & P(\lambda) & \bigfrac{e^{-\lambda} \lambda^k}{k!} & 
+	\lambda & \lambda & e^{\displaystyle \lambda (e^t - 1)}\\\hline
+\end{array}
+$$
+
+\subsection{Distribuciones Continuas}
+
+$$
+\begin{array}{l|l|c|c|c|c|c}
+\mathbf{\mbox{Nombre}} & \mathbf{X \sim} & \mathbf{f_X(x)} & \mathbf{F_X(x)} &
+	\mathbf{E(X)} & \mathbf{V(X)} & \mathbf{M_X(t)} \\\hline\hline
+\mbox{Uniforme} & U(A,B) & \bigfrac{1}{B-A} I_{[A,B]}(x) & 
+	\bigfrac{x-A}{B-A} I_{[A,B]}(x) & \bigfrac{A+B}{2} & 
+	\bigfrac{(B-A)^2}{12} & \bigfrac{e^{tb} - e^{ta}}{t(b - a)} \\\hline
+\mbox{Normal} & N(\mu,\sigma^2) & \bigfrac{1}{\sqrt{2 \pi} \sigma} 
+	e ^ {\displaystyle -\frac{(x-\mu)^2}{2 \sigma^2}} & \Phi(x)
+	& \mu & \sigma^2 & e^{\bigfrac{\sigma^2 t^2}{2}+\mu t }\\\hline
+\mbox{Gamma} & \Gamma(\alpha,\lambda) & 
+	\bigfrac{e^{-\lambda x} x^{\alpha-1} \lambda^\alpha}{\Gamma(\alpha)} &
+	& \bigfrac{\alpha}{\lambda} & \bigfrac{\alpha}{\lambda^2} 
+	& \left(\bigfrac{\lambda}{\lambda - t}\right)^\alpha \\\hline
+\mbox{Exponencial} & \expon(\lambda) & 
+	e^{-\lambda x} \lambda & 1-e^{-\lambda x} &
+	\lambda^{-1} & \lambda^{-2} & \bigfrac{\lambda}{\lambda - t} \\\hline
+\end{array}
+$$
+
+\subsection{Distribuci\'on Vectorial Discreta}
+$$
+\begin{array}{l|l|c}
+\mathbf{\mbox{Nombre}} & \mathbf{X \sim} & 
+	\mathbf{p_{X_1,...,X_k}(x_1,...,x_k)} \\\hline\hline
+\mbox{Multinomial} & M(n,p_1,...,p_k) & 
+	\displaystyle n! \prod_{i=1}^k \frac{p_i^{x_i}}{x_i!} \\\hline
+\end{array}
+$$
+
+
+\label{theend}
+\end{document}
